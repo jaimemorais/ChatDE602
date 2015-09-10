@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Log das mensagens -->
+<br />
+<br />
+
+    <div class="logmensagem">
+        <ul id="logMensagens" class="list-group"></ul>
+    </div>
+
+
+    <!-- Rodape - envio de mensagens -->
+    <footer class="rodape">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" id="txtMensagem" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input type="button" id="btnEnviaMensagem" value="Enviar Mensagem" class="btn btn-default" />
+            </div>
+        </div>
+    </footer>
+
+
+
+
+<input type="hidden" id="nomeUsuario" value="@Session["NomeUsuario"]"/>
+
+<script type="text/javascript">
+    
+        $(function () {
+
+
+            // Referencia a classe do HUB (Mapeia pro ChatHub.cs)
+            var chat = $.connection.chatHub;
+
+
+            // Funcao que o hub vai chamar quando fizer o broadcast
+            chat.client.broadcastMessage = function (usuario, mensagem, dataHora) {
+                var usuHtml = $('<div />').text(usuario).html();
+                var msgHtml = $('<div />').text(mensagem).html();
+                var dataHoraHtml = $('<div />').text(dataHora).html();
+                $('#logMensagens').append('<li class="list-group-item">' +
+                                            '<strong>[' + dataHoraHtml + ']&nbsp;' +
+                                            '(' + usuHtml + ')</strong>&nbsp;&nbsp;' +
+                                            msgHtml + '</li>');
+                
+                // Faz o scroll automatico
+                document.getElementById('fundoParaScroll').scrollIntoView();
+            };
+
+
+            // Ao entrar obtem o nome do usuario
+            // $('#nomeUsuario').val(prompt('Seu nome para uso no chat:', ''));            
+            
+            // Foco inicial no txtMensagem
+            $('#txtMensagem').focus();
+
+            // Enter para enviar mensagem
+            $("#txtMensagem").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    $("#btnEnviaMensagem").click();
+                }
+            });
+
+
+            // Realiza a conexao
+            $.connection.hub.start().done(function () {                                
+
+                // Exibe o historico ao entrar
+                chat.server.exibeHistoricoMensagens();
+
+                // Clique do envia mensagem chama a funcao no Hub
+                $('#btnEnviaMensagem').click(function () {
+                    // Envia msg
+                    chat.server.enviaMensagem($('#nomeUsuario').val(), $('#txtMensagem').val());
+
+                    // Foca no txtMensagem
+                    $('#txtMensagem').val('').focus();
+
+                    // Faz o scroll automatico
+                    document.getElementById('fundoParaScroll').scrollIntoView();
+                });
+
+            });
+
+        });
+</script>

@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Arquivos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<h2>Arquivos</h2>
+
+
+
+
+@using (Html.BeginForm("UploadArquivo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="arquivoUpload" id="arqUpload" />
+    <div class="line containerButtons">
+        <input type="submit" name="btnUploadArquivo" value="Enviar Arquivo" class="button" />
+    </div>
+}
+
+

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Chat DE602</title>
+
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-theme.min.css">
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <!-- CSS do chat -->
+    <link rel="stylesheet" type="text/css" href="~/Content/chatDE602.css">
+
+    <!-- SignalR -->
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Home/Chat">Chat da DE602</a>
+            </div>
+            
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                            <li><a href="~/Home/Arquivos">Arquivos</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="~/Home/Config">Config</a></li>
+                            <li role="separator" class="divider"></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Body -->
+    <div>
+        @RenderBody()
+    </div>
+    <div id="fundoParaScroll"/>
+</body>
+
+</html>
