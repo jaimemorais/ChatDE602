@@ -1,4 +1,5 @@
 ﻿using ChatDE602.Hubs;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 
@@ -43,8 +44,8 @@ namespace ChatDE602.Controllers
         public ActionResult Arquivos()
         {
             string pathArquivos = Util.ObtemPathArquivosUpload();
-            
-            // TODO Listar arquivos
+
+            ViewBag.ArquivosServidor = Directory.GetFiles(pathArquivos);
 
             return View();
         }
@@ -81,6 +82,17 @@ namespace ChatDE602.Controllers
             return RedirectToAction("Arquivos");
         }
 
+
+
+        public ActionResult DownloadArquivo(string paramPath)
+        {
+            byte[] dados = System.IO.File.ReadAllBytes(paramPath);
+
+            return this.File(dados, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(paramPath));
+        }
+
     }
+
+
 
 }

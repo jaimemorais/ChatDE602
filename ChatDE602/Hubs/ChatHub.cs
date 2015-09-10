@@ -50,7 +50,7 @@ namespace ChatDE602.Hubs
                 foreach (string linha in conteudoHistorico)
                 {
                     string[] info = linha.Split('|');
-                    Clients.All.broadcastMessage(info[0], info[2], info[1]);
+                    Clients.Caller.broadcastMessage(info[0], info[2], info[1]);
                 }
             }
         }

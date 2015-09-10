@@ -9,15 +9,45 @@
 <br />
 <br />
 <h2>Arquivos</h2>
+<br />
 
 
 
-
+<h3>Upload</h3>
 @using (Html.BeginForm("UploadArquivo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="arquivoUpload" id="arqUpload" />
-    <div class="line containerButtons">
-        <input type="submit" name="btnUploadArquivo" value="Enviar Arquivo" class="button" />
+    <fieldset>
+        <input type="file" name="arquivoUpload" id="arqUpload" />
+        <br />
+        <div class="line containerButtons">
+            <input type="submit" name="btnUploadArquivo" value="Enviar Arquivo" class="button" />
+        </div>
+    </fieldset>
+}
+
+
+<br/>
+<br />
+<br />
+<h3>Arquivos no servidor</h3>
+@if (ViewBag.ArquivosServidor != null)
+{
+    <div class="containerTable">
+        <table class="dataGrid" style="width: 100%">
+            <tbody>
+                @foreach (string arq in ViewBag.ArquivosServidor)
+                {
+                    <tr>
+                        <td>
+                            @arq
+                        </td>
+                        <td>
+                            @Html.ActionLink("Download", "DownloadArquivo", "Home", new { paramPath = arq }, null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 }
 
